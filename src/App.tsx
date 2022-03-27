@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./styles.css";
 import { UserCard } from "./components/UserCard";
 import { useAllUsers } from "./hooks/useAllUsers";
