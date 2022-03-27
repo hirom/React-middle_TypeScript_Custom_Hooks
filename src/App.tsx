@@ -1,16 +1,28 @@
+import { useState } from "react";
 import "./styles.css";
 import { UserCard } from "./components/UserCard";
+import { useAllUsers } from "./hooks/useAllUsers";
 
-const user = {
-  id: 1,
-  name: "test",
-  email: "123@gmail.com",
-  address: "testaddress"
-};
 export default function App() {
+  const { getUsers, UserProfiles, loading, error } = useAllUsers();
+
+  const onclickFetchUser = () => getUsers();
+
   return (
     <div className="App">
-      <UserCard user={user} />
+      <button onClick={onclickFetchUser}>データ取得</button>
+      <br />
+      {error ? (
+        <p style={{ color: " red " }}>データの取得に失敗しました</p>
+      ) : loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          {UserProfiles.map((user) => (
+            <UserCard key={user.id} user={user} />
+          ))}
+        </>
+      )}
     </div>
   );
 }
